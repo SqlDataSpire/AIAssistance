@@ -5,8 +5,8 @@ setlocal enabledelayedexpansion
 :: ============================================================================
 :: CONFIGURATION
 :: ============================================================================
-set "REMOTE_USER=tony"
-set "REMOTE_HOST=192.168.50.164"
+set "REMOTE_USER=root"
+set "REMOTE_HOST=192.168.1.199"
 set "REMOTE_PORT=18789"
 set "LOCAL_PORT=18789"
 set "CHROME_PROFILE=%TEMP%\openclaw_chrome_session"
