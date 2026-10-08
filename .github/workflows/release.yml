@@ -1,10 +1,16 @@
 name: Release a skill group
 
-# Triggered by tags like  learning--v1.2.0  (created by scripts/release.py).
+# Runs automatically for tags like  learning--v1.2.0  (created by scripts/release.py).
+# Can also be run by hand from the Actions tab for an existing tag.
 # Publishes a GitHub Release with one .zip per skill in that group.
 on:
   push:
     tags: ["*--v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to release, e.g. learning--v1.0.0"
+        required: true
 
 permissions:
   contents: write
@@ -12,8 +18,13 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -21,7 +32,10 @@ jobs:
       - name: Parse tag
         id: tag
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          case "$TAG" in
+            *--v*) ;;
+            *) echo "::error::'$TAG' is not a <group>--v<version> tag"; exit 1 ;;
+          esac
           echo "group=${TAG%%--v*}" >> "$GITHUB_OUTPUT"
           echo "version=${TAG##*--v}" >> "$GITHUB_OUTPUT"
 
@@ -37,6 +51,7 @@ jobs:
 
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.TAG }}
           name: ${{ steps.tag.outputs.group }} v${{ steps.tag.outputs.version }}
           files: dist/*.zip
           generate_release_notes: true
