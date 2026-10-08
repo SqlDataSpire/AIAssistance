@@ -1,0 +1,32 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "sqldataspire",
+  "description": "Reusable AI skills and workflows from SqlDataSpire.",
+  "owner": {
+    "name": "Antony Liberato",
+    "url": "https://github.com/SqlDataSpire"
+  },
+  "plugins": [
+    {
+      "name": "learning",
+      "source": "./plugins/learning",
+      "description": "Study, quiz, and self-assessment skills for any subject: exams, certifications, courses, and interview prep.",
+      "category": "education",
+      "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/learning"
+    },
+    {
+      "name": "workflow",
+      "source": "./plugins/workflow",
+      "description": "Collaboration protocols and working-style skills for planning, design, and documentation.",
+      "category": "productivity",
+      "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/workflow"
+    },
+    {
+      "name": "atlassian",
+      "source": "./plugins/atlassian",
+      "description": "Jira and Confluence workflow skills. Requires an Atlassian (Jira/Confluence) connector or MCP server.",
+      "category": "productivity",
+      "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/atlassian"
+    }
+  ]
+}

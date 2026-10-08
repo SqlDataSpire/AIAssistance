@@ -1,0 +1,42 @@
+name: Release a skill group
+
+# Triggered by tags like  learning--v1.2.0  (created by scripts/release.py).
+# Publishes a GitHub Release with one .zip per skill in that group.
+on:
+  push:
+    tags: ["*--v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Parse tag
+        id: tag
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          echo "group=${TAG%%--v*}" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG##*--v}" >> "$GITHUB_OUTPUT"
+
+      - name: Check tag matches the group's version
+        run: |
+          ACTUAL=$(python -c "import json;print(json.load(open('plugins/${{ steps.tag.outputs.group }}/plugin.json'))['version'])")
+          if [ "$ACTUAL" != "${{ steps.tag.outputs.version }}" ]; then
+            echo "::error::Tag says ${{ steps.tag.outputs.version }} but plugin.json says $ACTUAL"; exit 1
+          fi
+
+      - run: python scripts/validate_skills.py
+      - run: python scripts/package_skills.py --group ${{ steps.tag.outputs.group }}
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ steps.tag.outputs.group }} v${{ steps.tag.outputs.version }}
+          files: dist/*.zip
+          generate_release_notes: true

@@ -1,0 +1,5 @@
+{
+  "name": "atlassian",
+  "version": "1.0.0",
+  "description": "Jira and Confluence workflow skills. Requires an Atlassian (Jira/Confluence) connector or MCP server."
+}

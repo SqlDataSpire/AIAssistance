@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "Collaboration protocols and working-style skills for planning, design, and documentation.",
+  "author": {
+    "name": "Antony Liberato",
+    "url": "https://github.com/SqlDataSpire"
+  },
+  "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/workflow",
+  "repository": "https://github.com/SqlDataSpire/AIAssistance",
+  "license": "MIT"
+}

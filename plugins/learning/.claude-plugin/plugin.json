@@ -1,0 +1,12 @@
+{
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "Study, quiz, and self-assessment skills for any subject: exams, certifications, courses, and interview prep.",
+  "author": {
+    "name": "Antony Liberato",
+    "url": "https://github.com/SqlDataSpire"
+  },
+  "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/learning",
+  "repository": "https://github.com/SqlDataSpire/AIAssistance",
+  "license": "MIT"
+}

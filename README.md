@@ -1,33 +1,36 @@
 # AIAssistance
 
-A curated repository of reusable AI skills, helper scripts, and automation artifacts to optimize your experience with AI coding assistants (such as Antigravity IDE, Claude Code, Gemini CLI) and LLM platforms.
+[![Validate skills](https://github.com/SqlDataSpire/AIAssistance/actions/workflows/validate.yml/badge.svg)](https://github.com/SqlDataSpire/AIAssistance/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+An open, community collection of reusable **Agent Skills**, organized into installable groups. Each skill is written once and works in Claude, ChatGPT / Codex, Gemini CLI, MiniMax, Cursor, GitHub Copilot, and other assistants that support the open [Agent Skills](https://agentskills.io) standard.
 
 ---
 
-## ⚡ Quick Links
+## 📦 Skill Groups
 
-- 📖 **[Skills Installation Guide](./skills/README.md)** – Detailed instructions on installing skills globally or per-workspace.
+Install a whole group, or pick individual skills.
 
----
-
-## 🤖 Included AI Skills (`skills/`)
-
-Skills follow the open Agent Skills standard and provide pre-packaged protocols, guidelines, and behavioral modes for AI agents.
-
-| Skill | Category | Description | Location |
-| :--- | :--- | :--- | :--- |
-| **`collaboration`** | Protocol / Workflow | Dual-mode protocol for game mechanics brainstorming (*Suggestion mode*) and documentation commits (*Decision mode*). | [`skills/collaboration`](./skills/collaboration) |
-| **`quiz-coach`** | Learning / Study | Interactive study and diagnostic coach for technical certification exams, interview prep, and guided self-testing. | [`skills/quiz-coach`](./skills/quiz-coach) |
-
-> 💡 *For step-by-step instructions on installing skills into your AI assistant, see the **[Skills Installation Guide](./skills/README.md)**.*
-
----
-
-## 🛠️ Scripts & Utilities
-
-| Utility | Platform | Description |
+| Group | Skills | Description |
 | :--- | :--- | :--- |
-| **`openclaw_gui.bat`** | Windows | Batch script that automates SSH tunneling to an OpenClaw instance and opens the browser UI. |
+| [**`learning`**](./plugins/learning) | `quiz-coach` | Study, quiz, and self-assessment skills for any subject: exams, certifications, courses, and interview prep. |
+| [**`atlassian`**](./plugins/atlassian) | `confluence-task-tracker` | Jira and Confluence workflow skills. Needs an Atlassian connector. |
+| [**`workflow`**](./plugins/workflow) | `collaboration` | Collaboration protocols and working-style skills for planning, design, and documentation. |
+
+---
+
+## 🚀 Install
+
+| Platform | Install a group | Install one skill |
+| :--- | :--- | :--- |
+| **Claude Code** | `/plugin marketplace add SqlDataSpire/AIAssistance` then `/plugin install learning@sqldataspire` | via `npx skills` (below) |
+| **Claude Desktop / Cowork** | Plugins settings → Add marketplace → `SqlDataSpire/AIAssistance` → pick a group | Upload a skill `.zip` |
+| **OpenAI Codex / ChatGPT desktop** | `codex plugin marketplace add SqlDataSpire/AIAssistance`, then install a group from `/plugins` | via `npx skills` |
+| **Gemini CLI** | Clone the repo, then `gemini extensions install ./plugins/learning` | `npx skills add SqlDataSpire/AIAssistance -a gemini-cli --skill quiz-coach` |
+| **Any agent (Cursor, Copilot, Windsurf, MiniMax Code, OpenCode, …)** | `npx skills add SqlDataSpire/AIAssistance` | `npx skills add SqlDataSpire/AIAssistance --skill quiz-coach` |
+| **Upload-based apps (Claude.ai, ChatGPT, MiniMax Agent)** | — | Download `<skill>.zip` from [Releases](https://github.com/SqlDataSpire/AIAssistance/releases) and upload it |
+
+Full instructions, including manual copy installs, are in **[INSTALL.md](./INSTALL.md)**.
 
 ---
 
@@ -35,25 +38,44 @@ Skills follow the open Agent Skills standard and provide pre-packaged protocols,
 
 ```
 AIAssistance/
-├── README.md             # Main repository overview & index
-├── openclaw_gui.bat      # OpenClaw SSH tunnel & launcher script
-└── skills/               # Reusable AI Agent Skills directory
-    ├── README.md         # Detailed skill installation guide
-    ├── collaboration/    # Collaboration protocol skill
-    └── quiz-coach/       # Quiz & test prep coach skill
+├── .claude-plugin/marketplace.json   # Claude marketplace (also read by ChatGPT, npx skills)
+├── .agents/plugins/marketplace.json  # Codex / ChatGPT marketplace
+├── plugins/
+│   ├── learning/                     # ← one folder per group
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── plugin.json               # Portable Agent Plugins manifest (Codex / ChatGPT)
+│   │   ├── gemini-extension.json
+│   │   ├── README.md
+│   │   ├── CHANGELOG.md              # Written by release.py
+│   │   └── skills/quiz-coach/SKILL.md
+│   └── workflow/
+│       └── … same layout …
+├── scripts/
+│   ├── new_group.py                  # Scaffold + register a new group
+│   ├── new_skill.py                  # Create a skill in a group from the template
+│   ├── validate_skills.py            # Spec + manifest consistency checks (runs in CI)
+│   ├── package_skills.py             # Build one upload-ready .zip per skill
+│   └── release.py                    # Bump version, changelog, commit + tag <group>--vX.Y.Z
+├── templates/SKILL.template.md
+├── .github/workflows/                # CI validation + release zips
+├── INSTALL.md
+├── CONTRIBUTING.md
+└── tools/openclaw/                   # Windows: SSH tunnel + app-window launcher for a remote OpenClaw
 ```
 
 ---
 
-## ➕ Adding New Skills & Utilities
+## ➕ Contributing
 
-As this repository grows:
+```bash
+python scripts/new_skill.py learning flash-cards "Use when the user wants flashcards or spaced repetition."
+# new group:
+python scripts/new_group.py sql-data "SQL and data engineering helpers." --category Development
+python scripts/validate_skills.py
+```
 
-1. **Adding a New Skill**:
-   - Create a subfolder inside `skills/<skill-name>/`.
-   - Add a `SKILL.md` file containing the mandatory YAML frontmatter (`name` and `description`).
-   - Add the skill to the table above and in [`skills/README.md`](./skills/README.md).
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for details.
 
-2. **Adding a New Script / Tool**:
-   - Place the script in the root directory (or a designated subfolder).
-   - Document its purpose and usage parameters in the **Scripts & Utilities** section above.
+## 📄 License
+
+[MIT](./LICENSE)

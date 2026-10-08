@@ -1,0 +1,4 @@
+dist/
+__pycache__/
+# Personal settings for tools
+tools/openclaw/openclaw_gui.config.cmd

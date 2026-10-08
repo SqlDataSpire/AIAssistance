@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "atlassian",
+  "version": "1.0.0",
+  "description": "Jira and Confluence workflow skills. Requires an Atlassian (Jira/Confluence) connector or MCP server.",
+  "author": {
+    "name": "Antony Liberato",
+    "url": "https://github.com/SqlDataSpire"
+  },
+  "homepage": "https://github.com/SqlDataSpire/AIAssistance/tree/main/plugins/atlassian",
+  "repository": "https://github.com/SqlDataSpire/AIAssistance",
+  "license": "MIT"
+}

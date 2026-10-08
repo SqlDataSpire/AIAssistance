@@ -1,0 +1,9 @@
+{
+  "site": "your-org.atlassian.net",
+  "cloudId": "00000000-0000-0000-0000-000000000000",
+  "spaceKey": "TEAM",
+  "hubPageId": "1234567890",
+  "dailyLogPageId": "1234567891",
+  "looseTasksPageId": "1234567892",
+  "staleDays": 3
+}
